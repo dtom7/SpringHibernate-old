@@ -10,9 +10,14 @@ import com.example.dao.EventDAO;
 import com.example.dao.EventDAOImpl;
 import com.example.dao.JobDAO;
 import com.example.dao.JobDAOImpl;
+import com.example.dao.PersonDAO;
+import com.example.dao.VehicleDAO;
+import com.example.domain.Vehicle;
+import com.example.domain.Address;
 import com.example.domain.Event;
 import com.example.domain.Job;
 import com.example.domain.JobKey;
+import com.example.domain.Person;
 
 public class Demo {
 
@@ -20,19 +25,38 @@ public class Demo {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				new String[] { "applicationContext.xml" });
 
-		JobDAO jobDAO = (JobDAO) context.getBean("jobDAOImpl"); 
+		PersonDAO personDAO = (PersonDAO) context.getBean("personDAOImpl"); 
+		VehicleDAO vehicleDAO = (VehicleDAO) context.getBean("vehicleDAOImpl"); 
 		
-		Job job = new Job();
-		JobKey jobKey = new JobKey(1000, 0, new Date(), 0);
-		job.setJobkey(jobKey);
-		job.setEmplStatus("A");																
+		Person person = new Person();
+		person.setName("Dan");
+		
+		Vehicle vehicle1 = new Vehicle("suv");
+		Vehicle vehicle2 = new Vehicle("car");
+		
+		vehicle1.setPerson(person);
+		vehicle2.setPerson(person);
+		
+        person.getVehicleList().add(vehicle1);
+        person.getVehicleList().add(vehicle2);
 
 		try {
-			System.out.println(jobDAO.createJob(job));
+			System.out.println(personDAO.addPerson(person));
+			//System.out.println(vehicleDAO.createVehicle(vehicle1));
+			//System.out.println(vehicleDAO.createVehicle(vehicle2));
+			//System.out.println(personDAO.addPerson(person));
 		} catch (Exception e) {
-			System.err.println("Exception: " +  e.getMessage());
+			System.err.println("Exception: " +  e);
 		}
-
+		person = null;
+		try {
+			person = personDAO.getPerson(1);
+		} catch (Exception e) {
+			System.err.println("Exception: " +  e);
+		}
+		
+		
+		
 	}
 
 }
