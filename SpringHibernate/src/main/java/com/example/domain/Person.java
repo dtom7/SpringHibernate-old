@@ -30,9 +30,7 @@ public class Person {
 	@Column(name = "PERSON_ID")
 	private int id;
 	private String name;
-	@OneToMany(cascade=CascadeType.ALL)//, mappedBy="person")//(mappedBy="person") 
-	@JoinTable(name="PERSON_VEHICLE", joinColumns=@JoinColumn(name="PERSON_ID"),
-	inverseJoinColumns=@JoinColumn(name="VEHICLE_ID"))
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="person") 
 	private Collection<Vehicle> vehicleList = new ArrayList<>();
 
 	public Collection<Vehicle> getVehicleList() {

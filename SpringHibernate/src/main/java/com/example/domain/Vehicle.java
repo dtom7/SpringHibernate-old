@@ -1,5 +1,6 @@
 package com.example.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,12 +14,13 @@ public class Vehicle {
 	
 	@Id
 	@GeneratedValue
+	@Column(name = "VEHICLE_ID")
 	private int id;
 	private String name;
 	@ManyToOne
 	@JoinColumn(name="PERSON_ID")
-	//@JoinTable(name="PERSON_VEHICLE", joinColumns=@JoinColumn(name="PERSON_ID"),
-	//inverseJoinColumns=@JoinColumn(name="VEHICLE_ID"))
+	//@JoinTable(name="PERSON_VEHICLE", joinColumns=@JoinColumn(name="VEHICLE_ID"),
+	//inverseJoinColumns=@JoinColumn(name="PERSON_ID"))
 	private Person person;
 	
 	public Vehicle() {
