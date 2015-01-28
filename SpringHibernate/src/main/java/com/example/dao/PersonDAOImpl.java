@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.domain.Event;
 import com.example.domain.Person;
 
 @Repository("personDAOImpl")
@@ -24,8 +25,16 @@ public class PersonDAOImpl implements PersonDAO {
 
 	@Override
 	@Transactional
-	public boolean addPerson(Person person) {
+	public boolean addPerson(Person person, Event... events) {
+		
+		for (Event event:events) {
+			person.getEventList().add(event);
+			event.getPersonList().add(person);
+			sessionFactory.getCurrentSession().save(event);
+		}
+		
 		sessionFactory.getCurrentSession().save(person);
+		
 		return true;
 	}
 

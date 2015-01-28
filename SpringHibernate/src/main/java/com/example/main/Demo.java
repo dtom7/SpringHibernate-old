@@ -25,38 +25,36 @@ public class Demo {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				new String[] { "applicationContext.xml" });
 
-		PersonDAO personDAO = (PersonDAO) context.getBean("personDAOImpl"); 
-		VehicleDAO vehicleDAO = (VehicleDAO) context.getBean("vehicleDAOImpl"); 
-		
-		Person person = new Person();
-		person.setName("Dan");
-		
-		Vehicle vehicle1 = new Vehicle("suv");
-		Vehicle vehicle2 = new Vehicle("car");
-		
-		vehicle1.setPerson(person);
-		vehicle2.setPerson(person);
-		
-        person.getVehicleList().add(vehicle1);
-        person.getVehicleList().add(vehicle2);
+		PersonDAO personDAO = (PersonDAO) context.getBean("personDAOImpl");
+		EventDAO eventDAO = (EventDAO) context.getBean("eventDAOImpl");
+
+		Person person1 = new Person();
+		person1.setName("Dan");
+
+		Event event1 = new Event("LOL", new Date());
+		Event event2 = new Event("MOL", new Date());
+
+
 
 		try {
-			System.out.println(personDAO.addPerson(person));
-			//System.out.println(vehicleDAO.createVehicle(vehicle1));
-			//System.out.println(vehicleDAO.createVehicle(vehicle2));
-			//System.out.println(personDAO.addPerson(person));
+			System.out.println(personDAO.addPerson(person1, event1, event2));
+			//System.out.println(eventDAO.createEvent(event1));
+			//System.out.println(eventDAO.createEvent(event2));
+			// System.out.println(personDAO.addPerson(person2));
+			// System.out.println(vehicleDAO.createVehicle(vehicle1));
+			// System.out.println(vehicleDAO.createVehicle(vehicle2));
+			// System.out.println(personDAO.addPerson(person));
 		} catch (Exception e) {
-			System.err.println("Exception: " +  e);
+			System.err.println("Exception: " + e);
 		}
-		person = null;
+		// person = null;
 		try {
-			person = personDAO.getPerson(1);
+			// person = personDAO.getPerson(1);
+			// System.out.println(person.getVehicleList().size());
 		} catch (Exception e) {
-			System.err.println("Exception: " +  e);
+			System.err.println("Exception: " + e);
 		}
-		
-		
-		
+
 	}
 
 }

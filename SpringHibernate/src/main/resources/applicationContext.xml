@@ -48,12 +48,12 @@
 				<!-- <prop key="hibernate.current_session_context_class">thread</prop> -->
 			</props>
 		</property>
-		<property name="packagesToScan" value="com.example.domain" />
-		<property name="mappingLocations">
+		<property name="packagesToScan" value="com.example.domain" /> 
+		<!--<property name="mappingLocations">
 			<list>
 				<value>classpath:com/example/domain/Event.hbm.xml</value>
 			</list>
-		</property>
+		</property> -->
 	</bean>
 
 	<bean id="transactionManager"

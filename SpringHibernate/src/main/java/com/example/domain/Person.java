@@ -2,6 +2,7 @@ package com.example.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -30,15 +32,17 @@ public class Person {
 	@Column(name = "PERSON_ID")
 	private int id;
 	private String name;
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="person") 
-	private Collection<Vehicle> vehicleList = new ArrayList<>();
+	@ManyToMany
+	@JoinTable(name="PERSON_EVENT", joinColumns=@JoinColumn(name="PERSON_ID"),
+	inverseJoinColumns=@JoinColumn(name="EVENT_ID")) 
+	private List<Event> eventList = new ArrayList<>();
 
-	public Collection<Vehicle> getVehicleList() {
-		return vehicleList;
+	public List<Event> getEventList() {
+		return eventList;
 	}
 
-	public void setVehicleList(Collection<Vehicle> vehicleList) {
-		this.vehicleList = vehicleList;
+	public void setEventList(List<Event> eventList) {
+		this.eventList = eventList;
 	}
 
 	public int getId() {

@@ -7,7 +7,7 @@
 
     <class name="Event" table="EVENTS">
         <id name="id" length="10" column="EVENT_ID">
-            <!-- <generator class="native"/> -->
+            <generator class="native"/>
         </id>
         <property name="date" type="timestamp" column="EVENT_DATE"/>
         <property name="title" length="30" column="EVENT_TITLE"/>

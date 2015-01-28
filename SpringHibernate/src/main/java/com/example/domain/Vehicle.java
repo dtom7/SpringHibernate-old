@@ -19,8 +19,6 @@ public class Vehicle {
 	private String name;
 	@ManyToOne
 	@JoinColumn(name="PERSON_ID")
-	//@JoinTable(name="PERSON_VEHICLE", joinColumns=@JoinColumn(name="VEHICLE_ID"),
-	//inverseJoinColumns=@JoinColumn(name="PERSON_ID"))
 	private Person person;
 	
 	public Vehicle() {
