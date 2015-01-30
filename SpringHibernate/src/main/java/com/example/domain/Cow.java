@@ -2,9 +2,10 @@ package com.example.domain;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 @Entity
-@DiscriminatorValue("cow")
 public class Cow extends Animal {
 	
 	private int milkQuantity;
