@@ -1,7 +1,12 @@
 package com.example.dao;
 
-public interface GenericDAO<T> {
+import com.example.domain.Animal;
+
+public interface GenericDAO<T extends Animal> {
 	
 	boolean create(T t);
+	T read(int id);
+	boolean update(T t);
+	void setClazz(Class<T> clazz);
 
 }

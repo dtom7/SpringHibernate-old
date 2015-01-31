@@ -33,14 +33,16 @@ public class Demo {
 		//PersonDAO personDAO = (PersonDAO) context.getBean("personDAOImpl");
 		//EventDAO eventDAO = (EventDAO) context.getBean("eventDAOImpl");
 		GenericDAO<Animal> animalDAO = (GenericDAO<Animal>) context.getBean("genericDAOImpl");
+		animalDAO.setClazz(Animal.class);
 		GenericDAO<Lion> lionDAO = (GenericDAO<Lion>) context.getBean("genericDAOImpl");
+		lionDAO.setClazz(Lion.class);
 		GenericDAO<Cow> cowDAO = (GenericDAO<Cow>) context.getBean("genericDAOImpl");
+		cowDAO.setClazz(Cow.class);
 
 		Animal animal = new Animal("Generic Animal", 4);
 		Lion lion = new Lion("Asian Lion", 4, 10);
 		Cow cow = new Cow("Lankan Cow", 4, 20);
 		
-
 		try {
 			System.out.println(animalDAO.create(animal));
 			System.out.println(lionDAO.create(lion));
@@ -49,7 +51,29 @@ public class Demo {
 		} catch (Exception e) {
 			System.err.println("Exception: " + e);
 		}
-
+				
+		try {
+			animal = animalDAO.read(1);
+            System.out.println("animal is: " + animal.getName());
+		} catch (Exception e) {
+			System.err.println("Exception: " + e);
+		}
+		
+		animal.setName("New Animal");
+		
+		try {
+            System.out.println("update: " + animalDAO.update(animal));
+		} catch (Exception e) {
+			System.err.println("Exception: " + e);
+		}	
+		
+		try {
+			animal = animalDAO.read(1);
+            System.out.println("animal is: " + animal.getName());
+		} catch (Exception e) {
+			System.err.println("Exception: " + e);
+		}
+		
 	}
 
 }
