@@ -4,12 +4,13 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Version;
 
 @Entity
 public class Lion extends Animal {
 
 	private int speed;
-
+	
 	public Lion() {
 		super();
 	}
@@ -26,7 +27,5 @@ public class Lion extends Animal {
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
-	
-	
 
 }

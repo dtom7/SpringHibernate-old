@@ -55,10 +55,18 @@ public class Demo {
 		try {
 			animal = animalDAO.read(1);
             System.out.println("animal is: " + animal.getName());
+            Thread t1 = new Thread(new Runner(animalDAO, animal));
+            Thread t2 = new Thread(new Runner(animalDAO, animal));
+            t1.start();
+            t2.start();
+            t1.join();
+            t2.join();
+            
 		} catch (Exception e) {
 			System.err.println("Exception: " + e);
 		}
 		
+		/*
 		animal.setName("New Animal");
 		
 		try {
@@ -72,6 +80,29 @@ public class Demo {
             System.out.println("animal is: " + animal.getName());
 		} catch (Exception e) {
 			System.err.println("Exception: " + e);
+		}*/
+		
+	}
+	
+	static class Runner implements Runnable {
+		
+		private GenericDAO<Animal> animalDAO;
+		private Animal animal;
+
+		public Runner(GenericDAO<Animal> animalDAO, Animal animal) {
+			super();
+			this.animalDAO = animalDAO;
+			this.animal = animal;
+		}
+
+		@Override
+		public void run() {
+			animal.setName("New Animal - " + Thread.currentThread().getName());
+			try {
+	            System.out.println("update: " + animalDAO.update(animal));
+			} catch (Exception e) {
+				System.err.println("Update Exception: " + e);
+			}		
 		}
 		
 	}

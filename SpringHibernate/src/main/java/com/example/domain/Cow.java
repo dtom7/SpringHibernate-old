@@ -4,12 +4,13 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Version;
 
 @Entity
 public class Cow extends Animal {
 	
 	private int milkQuantity;
-
+	
 	public Cow() {
 		super();
 	}

@@ -9,9 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Version;
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class Animal {
 	
 	@Id
@@ -19,6 +20,8 @@ public class Animal {
 	private int id;
 	private String name;
 	private int numLegs;
+	@Version
+	private int version;
 		
 	public Animal() {
 		super();
@@ -49,6 +52,14 @@ public class Animal {
 	}
 	public void setNumLegs(int numLegs) {
 		this.numLegs = numLegs;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 	
 }
