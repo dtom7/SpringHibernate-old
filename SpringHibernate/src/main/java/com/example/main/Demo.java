@@ -23,6 +23,8 @@ import com.example.domain.Event;
 import com.example.domain.Job;
 import com.example.domain.JobKey;
 import com.example.domain.Person;
+import com.sreeven.timetrack.dao.UserDAO;
+import com.sreeven.timetrack.domain.User;
 
 public class Demo {
 
@@ -32,79 +34,34 @@ public class Demo {
 
 		//PersonDAO personDAO = (PersonDAO) context.getBean("personDAOImpl");
 		//EventDAO eventDAO = (EventDAO) context.getBean("eventDAOImpl");
-		GenericDAO<Animal> animalDAO = (GenericDAO<Animal>) context.getBean("genericDAOImpl");
-		animalDAO.setClazz(Animal.class);
-		GenericDAO<Lion> lionDAO = (GenericDAO<Lion>) context.getBean("genericDAOImpl");
-		lionDAO.setClazz(Lion.class);
-		GenericDAO<Cow> cowDAO = (GenericDAO<Cow>) context.getBean("genericDAOImpl");
-		cowDAO.setClazz(Cow.class);
 
-		Animal animal = new Animal("Generic Animal", 4);
-		Lion lion = new Lion("Asian Lion", 4, 10);
-		Cow cow = new Cow("Lankan Cow", 4, 20);
+		UserDAO userDAO = (UserDAO) context.getBean("userDAOImpl");
+		System.out.println("Starting ..");
 		
-		try {
-			System.out.println(animalDAO.create(animal));
-			System.out.println(lionDAO.create(lion));
-			System.out.println(cowDAO.create(cow));
-
-		} catch (Exception e) {
-			System.err.println("Exception: " + e);
-		}
-				
-		try {
-			animal = animalDAO.read(1);
-            System.out.println("animal is: " + animal.getName());
-            Thread t1 = new Thread(new Runner(animalDAO, animal));
-            Thread t2 = new Thread(new Runner(animalDAO, animal));
-            t1.start();
-            t2.start();
-            t1.join();
-            t2.join();
-            
-		} catch (Exception e) {
-			System.err.println("Exception: " + e);
-		}
+		User user = new User();
+		user.setEmail("test@test.com");
+		user.setName("Test User");
+		user.setPassword("password");
+		user.setStatus("A");
 		
-		/*
-		animal.setName("New Animal");
+		Long id = userDAO.createUser(user);
+		System.out.println("New user id: " + id);
 		
-		try {
-            System.out.println("update: " + animalDAO.update(animal));
-		} catch (Exception e) {
-			System.err.println("Exception: " + e);
-		}	
+		user = userDAO.getUserById(id);
+		System.out.println("New user name: " + user.getName());
 		
-		try {
-			animal = animalDAO.read(1);
-            System.out.println("animal is: " + animal.getName());
-		} catch (Exception e) {
-			System.err.println("Exception: " + e);
-		}*/
+		user.setName("new name1");
+		user = userDAO.updateUser(user);
+		System.out.println("1Updated user name: " + user.getName());
 		
-	}
-	
-	static class Runner implements Runnable {
+		user.setName("new name2");
+		user = userDAO.updateUser(user);
+		System.out.println("2Updated user name: " + user.getName());
 		
-		private GenericDAO<Animal> animalDAO;
-		private Animal animal;
-
-		public Runner(GenericDAO<Animal> animalDAO, Animal animal) {
-			super();
-			this.animalDAO = animalDAO;
-			this.animal = animal;
-		}
-
-		@Override
-		public void run() {
-			animal.setName("New Animal - " + Thread.currentThread().getName());
-			try {
-	            System.out.println("update: " + animalDAO.update(animal));
-			} catch (Exception e) {
-				System.err.println("Update Exception: " + e);
-			}		
-		}
+		userDAO.deleteUser(user);
 		
+		//user = userDAO.getUserById(id);
+		System.out.println("After delete: " + userDAO.getUserById(id));
 	}
 
 }
