@@ -1,7 +1,8 @@
-package com.example.dao;
+package com.example.daotest;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import com.example.domain.Message;
 public class MessageDAOImpl implements MessageDAO {
 
 	@Autowired
+	@Qualifier("sessionFactory1")
 	private SessionFactory sessionFactory;
 
 	@Override
